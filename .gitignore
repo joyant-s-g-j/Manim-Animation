@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Manim generated outputs
+media/
+*.mp4
+*.mov
+*.gif
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# Build / temp / logs
+build/
+dist/
+*.log
+*.tmp
+
+# Editor/OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
