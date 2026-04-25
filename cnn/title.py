@@ -14,7 +14,7 @@ class Title(Scene):
         line.next_to(sub, DOWN, buff=0.35)
 
         steps = VGroup(
-            Text("① Input", font_size=17),
+            Text("① Input Image", font_size=17),
             Text("② Convolution", font_size=17),
             Text("③ Map", font_size=17),
             Text("④ Filters", font_size=17),
