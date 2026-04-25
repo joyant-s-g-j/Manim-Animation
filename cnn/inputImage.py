@@ -13,16 +13,18 @@ class InputImage(Scene):
         image.scale(1)
         image.next_to(title, DOWN, buff=0.35)
 
-        step_1 = Text("Convert this Image to pixels matrix", font_size=22)
-        step_1.next_to(image, DOWN, buff=0.35)
+        info = Text("Convert this Image to pixels matrix", font_size=22)
+        info.next_to(image, DOWN, buff=0.35)
 
+        import inputImage
         grid = create_pixel_grid()
+        inputImage.grid = grid
         grid.move_to(image.get_center())
 
         self.play(Write(title))
         self.play(FadeIn(image))
         self.wait(1)
-        self.play(FadeIn(step_1))
+        self.play(FadeIn(info))
         self.wait(1)
         self.play(FadeOut(image, run_time=5), FadeIn(grid, run_time=2))
-        self.play(FadeOut(step_1))
+        self.play(FadeOut(title, info))
