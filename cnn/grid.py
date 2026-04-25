@@ -1,8 +1,10 @@
 from manim import *
 from PIL import Image
+from pathlib import Path
 import numpy as np
 
-def create_pixel_grid(image_path):
+def create_pixel_grid():
+    image_path = Path(__file__).with_name("cat.png")
     pil_img = Image.open(image_path).convert("L").resize((13, 13))
     pixels = np.array(pil_img) / 255.0
 

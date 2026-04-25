@@ -1,7 +1,5 @@
 from manim import *
 from pathlib import Path
-from PIL import Image
-import numpy as np
 from grid import create_pixel_grid
 
 class InputImage(Scene):
@@ -18,7 +16,7 @@ class InputImage(Scene):
         step_1 = Text("Convert this Image to pixels matrix", font_size=22)
         step_1.next_to(image, DOWN, buff=0.35)
 
-        grid = create_pixel_grid(image_path=image_path)
+        grid = create_pixel_grid()
         grid.move_to(image.get_center())
 
         self.play(Write(title))
