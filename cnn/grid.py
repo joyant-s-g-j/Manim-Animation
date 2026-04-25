@@ -3,18 +3,15 @@ from PIL import Image
 from pathlib import Path
 import numpy as np
 
-def create_pixel_grid():
-    image_path = Path(__file__).with_name("cat.png")
-    pil_img = Image.open(image_path).convert("L").resize((13, 13))
-    pixels = np.array(pil_img) / 255.0
-
+def create_grid(data, cell_size=0.35, show_text=True):
     grid = VGroup()
+    rows, cols = data.shape
 
-    for i in range(pixels.shape[0]):
-        for j in range(pixels.shape[1]):
-            val = pixels[i][j]
+    for i in range(rows):
+        for j in range(rows):
+            val = data[i][j]
 
-            squrare = Square(
+            cell = Square(
                 side_length=0.35,
                 fill_color=WHITE,
                 fill_opacity=val,
@@ -22,10 +19,14 @@ def create_pixel_grid():
                 stroke_color=GRAY
             )
 
-            squrare.move_to(np.array([j, -i, 0]) * 0.35)
-            text_color = BLACK if val > 0.5 else GRAY_C
-            text = Text(f"{val:.1f}", font_size=12, color=text_color).move_to(squrare.get_center())
-            grid.add(VGroup(squrare, text))
+            cell.move_to(np.array([j, -i, 0]) * 0.35)
+
+            if show_text:
+                text_color = BLACK if val > 0.5 else GRAY_C
+                text = Text(f"{val:.1f}", font_size=12, color=text_color).move_to(cell.get_center())
+                grid.add(VGroup(cell, text))
+            else:
+                grid.add(cell)
     
     return grid
         
