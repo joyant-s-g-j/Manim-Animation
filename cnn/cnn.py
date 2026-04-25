@@ -4,5 +4,5 @@ from inputImage import InputImage
 
 class CNN(Scene):
     def construct(self):
-        # Title.construct(self)
+        Title.construct(self)
         InputImage.construct(self)

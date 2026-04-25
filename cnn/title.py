@@ -19,7 +19,7 @@ class Title(Scene):
             Text("③ Map", font_size=17),
             Text("④ Filters", font_size=17),
             Text("⑤ ReLU", font_size=17),
-            Text("⑥ Pool", font_size=17),
+            Text("⑥ Pooling", font_size=17),
             Text("⑦ Flatten", font_size=17),
             Text("⑧ Dense", font_size=17),
             Text("⑨ Softmax", font_size=17),
@@ -36,3 +36,4 @@ class Title(Scene):
         self.play(Create(line))
         self.play(LaggedStart(*[FadeIn(s, shift=UP * 0.15) for s in steps], lag_ratio=0.15))
         self.wait(3)
+        self.play(FadeOut(title, sub, line, steps), run_time=1)

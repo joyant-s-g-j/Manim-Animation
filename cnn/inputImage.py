@@ -12,9 +12,10 @@ class InputImage(Scene):
         image_path = Path(__file__).with_name("cat.png")
         image = ImageMobject(str(image_path))
         image.scale(1)
+        image.next_to(title, DOWN, buff=0.35)
 
         step_1 = Text("Convert this Image to pixels matrix", font_size=22)
-        step_1.move_to(RIGHT * 3)
+        step_1.next_to(image, DOWN, buff=0.35)
 
         pil_img = Image.open(image_path).convert("L")
         pil_img = pil_img.resize((13, 13))
@@ -35,16 +36,17 @@ class InputImage(Scene):
                 )
 
                 squrare.move_to(np.array([j, -i, 0]) * 0.35)
-                grid.add(squrare)
+                text_color = BLACK if val > 0.5 else GRAY_C
+                text = Text(f"{val:.1f}", font_size=12, color=text_color)
+                text.move_to(squrare.get_center())
+                cell = VGroup(squrare, text)
+                grid.add(cell)
         
         grid.move_to(image.get_center())
 
         self.play(Write(title))
         self.play(FadeIn(image))
         self.wait(1)
-        self.play(image.animate.shift(LEFT * 4))
         self.play(FadeIn(step_1))
         self.wait(1)
-        self.play(FadeOut(step_1))
-        self.play(image.animate.move_to(ORIGIN))
         self.play(FadeOut(image, run_time=5), FadeIn(grid, run_time=2))
