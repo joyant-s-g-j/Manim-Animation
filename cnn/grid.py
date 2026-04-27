@@ -3,7 +3,7 @@ from PIL import Image
 from pathlib import Path
 import numpy as np
 
-def create_grid(data, cell_size=0.35, show_text=True):
+def create_grid(data, cell_size=0.35, show_text=True, fill_opacity=None):
     grid = VGroup()
     rows, cols = data.shape
 
@@ -13,8 +13,8 @@ def create_grid(data, cell_size=0.35, show_text=True):
 
             cell = Square(
                 side_length=cell_size,
-                fill_color=WHITE,
-                fill_opacity=val,
+                # fill_color=WHITE,
+                fill_opacity=val if fill_opacity is None else fill_opacity,
                 stroke_width=0.5,
                 stroke_color=GRAY
             )

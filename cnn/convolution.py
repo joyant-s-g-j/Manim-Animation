@@ -48,6 +48,7 @@ class Convolution(Scene):
         mul_cap = Text("Element-wise Multiplication and Sum", font_size=22)
         mul_cap.next_to(filter, UP, buff=0.35)
         mul_cap.shift(LEFT * 0.4)
+
         self.play(
             filter.animate.scale(0.66),
             FadeOut(filter_cap),
@@ -56,3 +57,28 @@ class Convolution(Scene):
             FadeIn(mul_cap)
         )
 
+        selected_cells = [grid_2d[i][j] for i in range(3) for j in range(3)]
+        pixel_vals = [float(cell[1].text) for cell in selected_cells]
+        kernel_vals = kernel.flatten().tolist()
+
+        terms = [f"({p:g}\\times{k:g})" for p, k in zip(pixel_vals, kernel_vals)]
+        row1 = " + ".join(terms[0:3])
+        row2 = " + ".join(terms[3:6])
+        row3 = " + ".join(terms[6:9])
+
+        mul_sum = MathTex(row1 + r"\\ " + row2 + r"\\ " + row3).scale(0.6)
+        mul_sum.next_to(filter, DOWN, buff=0.35)
+        mul_sum.shift(LEFT * 1.2)
+
+        total = sum(p * k for p, k in zip(pixel_vals, kernel_vals))
+        result = MathTex(rf"= { total:.2f}").scale(0.7)
+        result.next_to(mul_sum, DOWN, buff=0.25)
+
+        self.play(Write(mul_sum))
+        self.play(Write(result))
+
+        result_grid = create_grid(np.ones((3, 3)) * 0.15, show_text=False, fill_opacity=0)
+        result_grid.scale_to_fit_width(filter.width)
+        result_grid.scale_to_fit_height(filter.height)
+        result_grid.next_to(filter, RIGHT, buff=0.9)
+        self.play(FadeIn(result_grid))
