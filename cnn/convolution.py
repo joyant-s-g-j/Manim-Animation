@@ -31,4 +31,13 @@ class Convolution(Scene):
         filter_cap.next_to(filter, DOWN, buff=0.35)
         self.play(FadeIn(filter_cap))
 
+        cells = list(grid_ref)
+        grid_2d = [cells[i*13:(i+1)*13] for i in range(13)]
+
+        for i in range(3):
+            for j in range(3):
+                cell = grid_2d[i][j]
+                square = cell[0]
+
+                self.play(square.animate.set_fill(RED, opacity=1), run_time=0.1)
         
