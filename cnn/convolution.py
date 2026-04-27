@@ -13,7 +13,7 @@ class Convolution(Scene):
         grid_ref = inputImage.grid
         self.play(grid_ref.animate.shift(LEFT * 3.5))
 
-        img_cap = Text("Input Image (13 x 13)", font_size=22)
+        img_cap = Text("Input Image (10 x 10)", font_size=22)
         img_cap.next_to(grid_ref, DOWN, buff=0.35)
         self.play(FadeIn(img_cap))
 
@@ -32,12 +32,27 @@ class Convolution(Scene):
         self.play(FadeIn(filter_cap))
 
         cells = list(grid_ref)
-        grid_2d = [cells[i*13:(i+1)*13] for i in range(13)]
+        grid_2d = [cells[i*10:(i+1)*10] for i in range(10)]
+        
+        block = VGroup()
 
         for i in range(3):
             for j in range(3):
                 cell = grid_2d[i][j]
+                block.add(cell)
                 square = cell[0]
 
                 self.play(square.animate.set_fill(RED, opacity=1), run_time=0.1)
-        
+
+        block_copy = block.copy()
+        mul_cap = Text("Element-wise Multiplication and Sum", font_size=22)
+        mul_cap.next_to(filter, UP, buff=0.35)
+        mul_cap.shift(LEFT * 0.4)
+        self.play(
+            filter.animate.scale(0.66),
+            FadeOut(filter_cap),
+            block_copy.animate.scale(0.7),
+            block_copy.animate.move_to(RIGHT * 1.1),
+            FadeIn(mul_cap)
+        )
+
