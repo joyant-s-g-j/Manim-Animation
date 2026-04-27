@@ -5,6 +5,6 @@ from convolution import Convolution
 
 class CNN(Scene):
     def construct(self):
-        Title.construct(self)
+        # Title.construct(self)
         InputImage.construct(self)
         Convolution.construct(self)
