@@ -82,3 +82,7 @@ class Convolution(Scene):
         result_grid.scale_to_fit_height(filter.height)
         result_grid.next_to(filter, RIGHT, buff=0.9)
         self.play(FadeIn(result_grid))
+
+        result_copy = MathTex(rf"{total:.2f}").scale(0.4)
+        result_copy.move_to(result.get_center())
+        self.play(result_copy.animate.move_to(result_grid[0].get_center()))
