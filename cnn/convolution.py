@@ -6,7 +6,7 @@ import numpy as np
 class Convolution(Scene):
     def construct(self):
         # ------------------ TITLE ------------------
-        title = Text("Step 2 — Convolution Operation", font_size=32, weight=BOLD)
+        title = Text("Step 2 — Convolution Operation & Feature Map", font_size=32, weight=BOLD)
         title.to_edge(UP * 1)
         self.add(title)
         self.play(Write(title))

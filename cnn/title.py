@@ -16,14 +16,12 @@ class Title(Scene):
         steps = VGroup(
             Text("① Input Image", font_size=17),
             Text("② Convolution", font_size=17),
-            Text("③ Map", font_size=17),
-            Text("④ Filters", font_size=17),
-            Text("⑤ ReLU", font_size=17),
-            Text("⑥ Pooling", font_size=17),
-            Text("⑦ Flatten", font_size=17),
-            Text("⑧ Dense", font_size=17),
-            Text("⑨ Softmax", font_size=17),
-            Text("⑩ Output", font_size=17)
+            Text("③ ReLU", font_size=17),
+            Text("④ Pooling", font_size=17),
+            Text("⑤ Flatten", font_size=17),
+            Text("⑥ Dense", font_size=17),
+            Text("⑦ Softmax", font_size=17),
+            Text("⑧ Output", font_size=17)
         ).arrange_in_grid(rows=2, buff=0.4)
         steps.next_to(line, DOWN, buff=0.55)
         
