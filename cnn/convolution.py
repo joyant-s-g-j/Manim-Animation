@@ -17,7 +17,7 @@ class Convolution(Scene):
 
         img_cap = Text("Input Image (10 x 10)", font_size=22)
         img_cap.next_to(grid_ref, DOWN, buff=0.35)
-        self.play(FadeIn(img_cap))
+        self.play(Write(img_cap))
 
         # ------------------ KERNEL ------------------
         kernel = np.array([
@@ -32,7 +32,7 @@ class Convolution(Scene):
 
         filter_cap = Text("Filter (Kernel) (3 x 3)", font_size=22)
         filter_cap.next_to(filter, DOWN, buff=0.35)
-        self.play(FadeIn(filter_cap))
+        self.play(Write(filter_cap))
 
         # ------------------ GRID PROCESS ------------------
         cells = list(grid_ref)
@@ -61,10 +61,10 @@ class Convolution(Scene):
 
         self.play(
             filter.animate.scale(0.66),
-            FadeOut(filter_cap),
+            Unwrite(filter_cap),
             highlight_block.animate.scale(0.7),
             highlight_block.animate.move_to(RIGHT * 0.2),
-            FadeIn(mul_cap)
+            Write(mul_cap)
         )
 
         selected_cells = [grid_2d[i][j] for i in range(3) for j in range(3)]
@@ -96,12 +96,16 @@ class Convolution(Scene):
         result_grid.shift(DOWN * 0.5)
         result_grid_cap = Text("Feature Map", font_size=22)
         result_grid_cap.next_to(result_grid, DOWN, buff=0.35)
-        self.play(FadeIn(result_grid, result_grid_cap))
+        import sys
+        sys.modules[__name__].result_grid = result_grid
+        sys.modules[__name__].result_grid_cap = result_grid_cap
+        self.play(FadeIn(result_grid), Write(result_grid_cap))
 
         # ------------------ FIRST OUTPUT CELL ------------------
         result_copy = MathTex(rf"{total:.2f}").scale(0.2)
         result_copy.move_to(result.get_center())
         self.play(result_copy.animate.move_to(result_grid[0].get_center()))
+        result_grid[0].add(result_copy)
 
         cell_w = grid_2d[0][0][0].width
         cell_h = grid_2d[0][0][0].height
@@ -185,6 +189,18 @@ class Convolution(Scene):
                     run_time=0.07
                 )
                 self.play(result_copy_loop.animate.move_to(result_grid[idx].get_center()))
+                result_grid[idx].add(result_copy_loop)
 
                 idx += 1
-                 
+                
+        self.play(
+            FadeOut(grid_ref),
+            FadeOut(overlay_block),
+            FadeOut(highlight_block),
+            FadeOut(filter),
+            Unwrite(title),
+            Unwrite(mul_sum),
+            Unwrite(result),
+            Unwrite(mul_cap),
+            Unwrite(img_cap)
+        )

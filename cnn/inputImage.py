@@ -33,4 +33,7 @@ class InputImage(Scene):
         self.play(FadeIn(info))
         self.wait(1)
         self.play(FadeOut(image, run_time=5), FadeIn(grid, run_time=2))
-        self.play(FadeOut(title, info))
+        self.play(
+            Unwrite(title),
+            Unwrite(info)
+        )
