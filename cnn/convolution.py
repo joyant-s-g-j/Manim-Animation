@@ -61,7 +61,7 @@ class Convolution(Scene):
 
         self.play(
             filter.animate.scale(0.66),
-            Unwrite(filter_cap),
+            FadeOut(filter_cap),
             highlight_block.animate.scale(0.7),
             highlight_block.animate.move_to(RIGHT * 0.2),
             Write(mul_cap)
@@ -141,21 +141,21 @@ class Convolution(Scene):
                 if col > 0:
                     self.play(
                         overlay_block.animate.shift(RIGHT * cell_w),
-                        run_time=0.07,
+                        run_time=0.02,
                         rate_func=linear
                     )
 
                 elif col == 0 and row > 0:
                     self.play(
                         overlay_block.animate.shift(DOWN * cell_h),
-                        run_time=0.07,
+                        run_time=0.02,
                         rate_func=linear
                     )
                     self.play(
                         overlay_block.animate.shift(
                             LEFT * cell_w * (out_cols - 1) 
                         ),
-                        run_time=0.07,
+                        run_time=0.02,
                         rate_func=linear
                     )
 
@@ -186,21 +186,15 @@ class Convolution(Scene):
                 self.play(
                     Transform(mul_sum, mul_sum_loop),
                     Transform(result, result_loop),
-                    run_time=0.07
+                    run_time=0.02
                 )
                 self.play(result_copy_loop.animate.move_to(result_grid[idx].get_center()))
                 result_grid[idx].add(result_copy_loop)
 
                 idx += 1
-                
+
+        all_out = VGroup(grid_ref, overlay_block, highlight_block, filter, mul_sum, result, mul_cap, img_cap, result_grid_cap)        
         self.play(
-            FadeOut(grid_ref),
-            FadeOut(overlay_block),
-            FadeOut(highlight_block),
-            FadeOut(filter),
+            FadeOut(all_out),
             Unwrite(title),
-            Unwrite(mul_sum),
-            Unwrite(result),
-            Unwrite(mul_cap),
-            Unwrite(img_cap)
         )

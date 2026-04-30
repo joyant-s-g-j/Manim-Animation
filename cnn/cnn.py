@@ -4,10 +4,10 @@ from inputImage import InputImage
 from convolution import Convolution
 from function import Function
 
-class CNN(Scene):
+class CNN(MovingCameraScene):
     def construct(self):
         # Title.construct(self)
         InputImage.construct(self)
-        Convolution.construct(self)
-        Function.construct(self)
+        # Convolution.construct(self)
+        # Function.construct(self)
         
