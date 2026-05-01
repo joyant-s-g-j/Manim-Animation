@@ -2,6 +2,7 @@ from manim import *
 import inputImage
 from grid import create_grid
 import numpy as np
+import sys
 
 class Convolution(Scene):
     def construct(self):
@@ -96,9 +97,7 @@ class Convolution(Scene):
         result_grid.shift(DOWN * 0.5)
         result_grid_cap = Text("Feature Map", font_size=22)
         result_grid_cap.next_to(result_grid, DOWN, buff=0.35)
-        import sys
         sys.modules[__name__].result_grid = result_grid
-        sys.modules[__name__].result_grid_cap = result_grid_cap
         self.play(FadeIn(result_grid), Write(result_grid_cap))
 
         # ------------------ FIRST OUTPUT CELL ------------------

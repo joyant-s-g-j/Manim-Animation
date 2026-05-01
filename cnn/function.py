@@ -90,7 +90,10 @@ class Function(MovingCameraScene):
         relu_info.next_to(axes, DOWN, buff=0.35)
 
         self.play(
-            Write(relu_info),
+            Write(relu_info)
+        )
+        self.wait(1)
+        self.play(
             Transform(dot1, dot1_relu),
             Transform(line, line_relu),
             run_time=1.5
@@ -98,19 +101,21 @@ class Function(MovingCameraScene):
 
         all_out = VGroup(relu_text, axes, line, dot1, dot2, relu_info)
         relu_map = relu_feature_map(feature_map)
-        self.play(
-            FadeOut(all_out),
-            relu_map.animate.shift(RIGHT * 6)
-        )
+        relu_target = relu_map.copy()
+        relu_target.shift(RIGHT * 6)
+
+        self.play(FadeOut(all_out))
+
+        import sys
+        sys.modules[__name__].relu_map = relu_map
 
         arrow = Arrow(
-            start=feature_map.get_right(),
-            end=relu_map.get_left(),
-            buff=0.15
+            start=feature_map.get_right() + RIGHT * 0.2,
+            end=relu_target.get_left() + LEFT * 0.2,
+            buff=0.05
         )
-        self.play(
-            GrowArrow(arrow)
-        )
+        self.play(GrowArrow(arrow))
+        self.play(relu_map.animate.move_to(relu_target))
 
         relu_map_cap = Text("After ReLU", font_size=22)
         relu_map_cap.next_to(relu_map, DOWN, buff=0.35)
@@ -120,3 +125,5 @@ class Function(MovingCameraScene):
 
         self.wait(1)
 
+        vanish = VGroup(feature_map, feature_map_cap, arrow, relu_map_cap)
+        self.play(FadeOut(vanish), Unwrite(title))
