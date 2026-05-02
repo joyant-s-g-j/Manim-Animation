@@ -119,9 +119,7 @@ class Function(MovingCameraScene):
 
         relu_map_cap = Text("After ReLU", font_size=22)
         relu_map_cap.next_to(relu_map, DOWN, buff=0.35)
-        self.play(
-            Write(relu_map_cap)
-        )
+        self.play(Write(relu_map_cap))
 
         self.wait(1)
 
