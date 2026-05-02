@@ -1,6 +1,6 @@
 from manim import *
 import inputImage
-from grid import create_grid
+from allFunction import create_grid
 import numpy as np
 import sys
 

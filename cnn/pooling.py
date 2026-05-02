@@ -2,26 +2,7 @@ from manim import *
 import re
 import function
 import numpy as np
-from grid import create_grid
-
-
-def cell_value(cell):
-    mob = cell[1]
-
-    if hasattr(mob, "get_value"):
-        return float(mob.get_value())
-
-    raw = getattr(mob, "text", None)
-    if raw is None:
-        raw = getattr(mob, "tex_string", None)
-    if raw is None:
-        raw = str(mob)
-            
-    raw = raw.replace("−", "-").strip()
-    m = re.search(r"[-+]?\d*\.?\d+", raw)
-    if not m:
-        return float("-inf")
-    return float(m.group())
+from allFunction import create_grid, cell_value
 
 class Pooling(MovingCameraScene):
     def construct(self):

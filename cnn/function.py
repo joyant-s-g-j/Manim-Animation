@@ -1,21 +1,6 @@
 from manim import *
 import convolution
-
-def relu_feature_map(grid):
-    relu_grid = grid.copy()
-
-    for cell in relu_grid:
-        value_mob = cell[1]
-        value = float(value_mob.get_tex_string())
-
-        new_value = max(0, value)
-        new_text = DecimalNumber(new_value, num_decimal_places=2 if new_value > 0 else 0, font_size=18)
-        new_text.move_to(value_mob.get_center())
-
-        cell.remove(value_mob)
-        cell.add(new_text)
-
-    return relu_grid
+from allFunction import relu_feature_map
 
 class Function(MovingCameraScene):
     def construct(self):

@@ -1,6 +1,6 @@
 from manim import *
 from pathlib import Path
-from grid import create_grid
+from allFunction import create_grid
 from PIL import Image
 import numpy as np
 
