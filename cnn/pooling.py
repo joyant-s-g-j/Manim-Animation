@@ -19,19 +19,41 @@ class Pooling(MovingCameraScene):
         relu_map_cap.next_to(relu_map, DOWN, buff=0.35)
         self.play(FadeIn(relu_map_cap))
 
-        cells = VGroup()
-        block_cells = []
-        
+        # ------------------ GRID SIZE ------------------
         row_len = int(len(relu_map) ** 0.5)
-        for i in range(2):
-            for j in range(2):
+        window_size = 2
+        stride = 2
+        pooled_size = row_len // stride
+
+        # ------------------ POOLED MAP ------------------
+        pooled_data = np.zeros((pooled_size, pooled_size))
+
+        pooled_map = create_grid(
+            pooled_data,
+            cell_size=0.35,
+            show_text=False,
+            fill_opacity=0
+        ).scale(1.15)
+        pooled_map.next_to(relu_map, RIGHT, buff=1.5)
+        self.play(FadeIn(pooled_map))
+
+        pooled_map_cap = Text("After Pooling", font_size=18)
+        pooled_map_cap.next_to(pooled_map, DOWN, buff=0.35)
+        self.play(Write(pooled_map_cap))
+
+        # ------------------ FIRST CELL (MANUAL) ------------------
+        first_block = []
+        first_cells = VGroup()
+        
+        for i in range(window_size):
+            for j in range(window_size):
                 idx = i * row_len + j
                 cell = relu_map[idx]
-                cells.add(cell)
-                block_cells.append(cell)
+                first_block.append(cell)
+                first_cells.add(cell)
 
         overlay_block = SurroundingRectangle(
-            cells,
+            first_cells,
             color=RED,
             buff=0,
             stroke_width=2
@@ -39,44 +61,69 @@ class Pooling(MovingCameraScene):
 
         self.play(Create(overlay_block))
 
-        max_cell = max(
-            block_cells,
-            key=cell_value
-        )
-        self.play(
-            max_cell[0].animate.set_fill(RED, opacity=0.25)
-        )
-
-        pooled_size = row_len // 2
-        pooled_data = np.zeros((pooled_size, pooled_size))
-        pooled_map = create_grid(
-            pooled_data,
-            cell_size=0.35,
-            show_text=False,
-            fill_opacity=0
-        ).scale(1.15)
-        
-        arrow = Arrow(
-            relu_map.get_right(),
-            pooled_map.get_left(),
-            buff=0.35
-        ).shift(UP * 0.1)
-        self.play(GrowArrow(arrow))
-        self.play(FadeIn(pooled_map))
-
-        pooled_map_cap = Text("After Pooling", font_size=18)
-        pooled_map_cap.next_to(pooled_map, DOWN, buff=0.35)
-        self.play(Write(pooled_map_cap))
-
+        max_cell = max(first_block, key=cell_value)
         max_val = cell_value(max_cell)
-        value_text = DecimalNumber(
+
+        first_value = DecimalNumber(
             max_val,
             num_decimal_places=2 if max_val > 0 else 0,
             font_size=16
         )
-        value_text.move_to(max_cell.get_center())
+        first_value.move_to(max_cell.get_center())
+
         self.play(
-            value_text.animate.move_to(pooled_map[0].get_center()),
-            run_time=0.7
+            first_value.animate.move_to(pooled_map[0].get_center()),
+            run_time=0.6
         )
-        pooled_map[0].add(value_text)
+
+        pooled_map[0].add(first_value)
+
+        # ------------------ LOOP START FROM 2ND CELL ------------------
+        idx = 1
+
+        for i in range(0, row_len, stride):
+            for j in range(0, row_len, stride):
+
+                if i == 0 and j == 0:
+                    continue
+
+                block = []
+                cells_group = VGroup()
+
+                for x in range(window_size):
+                    for y in range(window_size):
+                        cell = relu_map[(i + x) * row_len + (j + y)]
+                        block.append(cell)
+                        cells_group.add(cell)
+
+                self.play(
+                    Transform(overlay_block, SurroundingRectangle(
+                        cells_group,
+                        color=RED,
+                        buff=0,
+                        stroke_width=2
+                    )),
+                    run_time=0.3
+                )
+
+                max_cell = max(block, key=cell_value)
+                max_val = cell_value(max_cell)
+
+                value_text = DecimalNumber(
+                    max_val,
+                    num_decimal_places=2 if max_val > 0 else 0,
+                    font_size=16
+                )
+                value_text.move_to(max_cell.get_center())
+
+                self.play(
+                    value_text.animate.move_to(pooled_map[idx].get_center()),
+                    run_time=0.5
+                )
+
+                pooled_map[idx].add(value_text)
+
+                idx += 1
+        
+        self.wait(1)
+        

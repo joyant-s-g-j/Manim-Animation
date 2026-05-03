@@ -7,7 +7,7 @@ from pooling import Pooling
 
 class CNN(MovingCameraScene):
     def construct(self):
-        # Title.construct(self)
+        Title.construct(self)
         InputImage.construct(self)
         Convolution.construct(self)
         Function.construct(self)
