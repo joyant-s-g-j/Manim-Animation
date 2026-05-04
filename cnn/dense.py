@@ -31,3 +31,26 @@ class Dense(Scene):
 
         self.play(FadeIn(hidden1), FadeIn(hidden2), FadeIn(hidden3), FadeIn(output_layer))
         self.play(Create(conn1), Create(conn2), Create(conn3), Create(conn4), run_time=5)
+
+        output_vals = [2.3, 1.1, 0.4]
+
+        output_texts = VGroup()
+        arrows = VGroup()
+
+        for i, neuron in enumerate(output_layer):
+            arrow = Arrow(
+                start=neuron.get_right(),
+                end=neuron.get_right() + RIGHT * 0.8,
+                buff=0.1,
+                stroke_width=2
+            )
+            txt = DecimalNumber(output_vals[i], num_decimal_places=2, font_size=22)
+            txt.next_to(arrow, RIGHT, buff=0.2)
+            output_texts.add(txt)
+            arrows.add(arrow)
+        
+        self.play(
+            *[GrowArrow(a) for a in arrows],
+            Write(output_texts),
+            run_time=1.5
+        )
