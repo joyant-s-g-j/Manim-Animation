@@ -64,3 +64,24 @@ def cell_value(cell):
     if not m:
         return float("-inf")
     return float(m.group())
+
+def make_layer(n, color, fill_color):
+    return VGroup(*[
+        Circle(radius=0.18, color=color).set_fill(fill_color, opacity=0.25)
+        for _ in range(n)
+    ]).arrange(DOWN, buff=0.3)
+
+def fully_connect(left_group, right_group):
+            lines = VGroup()
+            for left in left_group:
+                for right in right_group:
+                    lines.add(
+                        Line(
+                            left.get_right(),
+                            right.get_left(),
+                            stroke_width=1.2,
+                            stroke_opacity=0.35,
+                            buff=0.05
+                        )
+                    )
+            return lines

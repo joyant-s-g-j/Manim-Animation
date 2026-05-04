@@ -1,9 +1,10 @@
 from manim import *
 import pooling
+import sys
 
 class Flatten(Scene):
     def construct(self):
-        title = Text("Step 4 — Flattening", font_size=32, weight=BOLD)
+        title = Text("Step 5 — Flattening", font_size=32, weight=BOLD)
         title.to_edge(UP * 1)
 
         pooled_map = pooling.pooled_map
@@ -17,12 +18,16 @@ class Flatten(Scene):
         self.play(FadeIn(pooled_map_cap))
 
         cells = list(pooled_map)
-        one_d = VGroup(*[cell.copy() for cell in cells])
-        one_d.arrange(DOWN, buff=0.02)
-        one_d.scale(0.6)
+        flat_cells = [cell.copy() for cell in cells]
+        flat_map = VGroup(*flat_cells)
+        flat_map.arrange(DOWN, buff=0.02)
+        flat_map.scale(0.55)
 
         self.play(
             FadeOut(pooled_map_cap),
-            *[ Transform(cells[i], one_d[i]) for i in range(len(cells))],
+            *[ Transform(cells[i], flat_cells[i]) for i in range(len(cells))],
             run_time=1.5
         )
+        sys.modules[__name__].flat_map = pooled_map
+
+        self.play(Unwrite(title))
