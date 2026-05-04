@@ -4,6 +4,7 @@ from inputImage import InputImage
 from convolution import Convolution
 from function import Function
 from pooling import Pooling
+from flatten import Flatten
 
 class CNN(MovingCameraScene):
     def construct(self):
@@ -12,4 +13,5 @@ class CNN(MovingCameraScene):
         Convolution.construct(self)
         Function.construct(self)
         Pooling.construct(self)
+        Flatten.construct(self)
         

@@ -1,6 +1,7 @@
 from manim import *
 import convolution
 from allFunction import relu_feature_map
+import sys
 
 class Function(MovingCameraScene):
     def construct(self):
@@ -91,7 +92,6 @@ class Function(MovingCameraScene):
 
         self.play(FadeOut(all_out))
 
-        import sys
         sys.modules[__name__].relu_map = relu_map
 
         arrow = Arrow(

@@ -3,8 +3,9 @@ import re
 import function
 import numpy as np
 from allFunction import create_grid, cell_value
+import sys
 
-class Pooling(MovingCameraScene):
+class Pooling(Scene):
     def construct(self):
         title = Text("Step 4 — Pooling Layer(Max Pooling)", font_size=32, weight=BOLD)
         title.to_edge(UP * 1)
@@ -125,5 +126,12 @@ class Pooling(MovingCameraScene):
 
                 idx += 1
         
-        self.wait(1)
+        sys.modules[__name__].pooled_map = pooled_map
+        self.play(
+            Unwrite(title),
+            FadeOut(relu_map),
+            FadeOut(overlay_block),
+            FadeOut(relu_map_cap),
+            FadeOut(pooled_map_cap)
+        )
         
