@@ -28,5 +28,5 @@ class Steps(Scene):
         self.play(FadeIn(sub, shift=UP * 0.2))
         self.play(Create(line))
         self.play(LaggedStart(*[FadeIn(s, shift=UP * 0.15) for s in steps], lag_ratio=0.15))
-        self.wait(3)
+        self.wait(1)
         self.play(FadeOut(title, sub, line, steps), run_time=1)

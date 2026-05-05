@@ -1,5 +1,6 @@
 from manim import *
 import dense
+import numpy as np
 
 class Prediction(Scene):
     def construct(self):
@@ -78,3 +79,10 @@ class Prediction(Scene):
         pred_text.next_to(axes, DOWN, buff=0.6)
 
         self.play(Write(pred_text))
+
+        fade_out = VGroup(prob_group[1], prob_labels, x_labels, pred_text)
+        self.play(
+            Unwrite(title),
+            Uncreate(axes),
+            FadeOut(fade_out)
+        )

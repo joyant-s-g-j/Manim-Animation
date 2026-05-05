@@ -72,16 +72,24 @@ def make_layer(n, color, fill_color):
     ]).arrange(DOWN, buff=0.3)
 
 def fully_connect(left_group, right_group):
-            lines = VGroup()
-            for left in left_group:
-                for right in right_group:
-                    lines.add(
-                        Line(
-                            left.get_right(),
-                            right.get_left(),
-                            stroke_width=1.2,
-                            stroke_opacity=0.35,
-                            buff=0.05
-                        )
-                    )
-            return lines
+    lines = VGroup()
+    for left in left_group:
+        for right in right_group:
+            lines.add(
+                Line(
+                    left.get_right(),
+                    right.get_left(),
+                    stroke_width=1.2,
+                    stroke_opacity=0.35,
+                    buff=0.05
+                )
+            )
+    return lines
+
+def add_watermark(scene):
+    watermark = Text("animated by joyant_s_g_j", font="Arial", font_size=13, color=GRAY_B)
+    watermark.to_corner(DR, buff=0.25)
+    watermark.set_opacity(0.7)
+    watermark.set_z_index(1000)
+    scene.add(watermark)
+    return watermark

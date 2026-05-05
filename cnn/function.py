@@ -33,7 +33,8 @@ class Function(MovingCameraScene):
 
         self.play(
             Create(axes),
-            Write(relu_text)
+            Write(relu_text),
+            run_time=1
         )
 
         p1 = axes.c2p(-4, -4)

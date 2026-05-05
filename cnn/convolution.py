@@ -128,6 +128,15 @@ class Convolution(Scene):
             FadeIn(overlay_block)
         )
 
+        # ------------------ STRIDE TEXT ------------------
+        stride_text = Text("Stride = 1", font_size=24)
+        stride_text.move_to(highlight_block.get_center())
+
+        self.play(
+            FadeOut(highlight_block),
+            FadeIn(stride_text)
+        )
+
         # ------------------ SLIDING WINDOW LOOP ------------------
         idx = 1
 
@@ -192,8 +201,8 @@ class Convolution(Scene):
 
                 idx += 1
 
-        all_out = VGroup(grid_ref, overlay_block, highlight_block, filter, mul_sum, result, mul_cap, img_cap, result_grid_cap)        
+        all_out = VGroup(grid_ref, overlay_block, stride_text, filter, mul_sum, result, mul_cap, img_cap, result_grid_cap)        
         self.play(
             FadeOut(all_out),
-            Unwrite(title),
+            Unwrite(title)
         )
