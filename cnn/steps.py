@@ -1,10 +1,7 @@
 from manim import *
 
-class Title(Scene):
+class Steps(Scene):
     def construct(self):
-        bg = Rectangle(width=16, height=9).set_fill(color="#010101", opacity=1).set_stroke(width=0)
-        self.add(bg)
-
         title = Text("How CNNs Detect Patterns", font_size=52, weight=BOLD)
         title.shift(UP * 1)
         sub = Text("Convolutional Neural Networks — A Visual Journey", font_size=22)
@@ -19,16 +16,14 @@ class Title(Scene):
             Text("③ ReLU", font_size=17),
             Text("④ Pooling", font_size=17),
             Text("⑤ Flatten", font_size=17),
-            Text("⑥ Dense", font_size=17),
-            Text("⑦ Softmax", font_size=17),
-            Text("⑧ Output", font_size=17)
+            Text("⑥ Dense & Softmax", font_size=17),
+            Text("⑦ Prediction", font_size=17),
         ).arrange_in_grid(rows=2, buff=0.4)
         steps.next_to(line, DOWN, buff=0.55)
         
         group = VGroup(title, sub, line, steps)
         group.move_to(ORIGIN)
 
-        self.play(FadeIn(bg))
         self.play(Write(title, run_time=1.4))
         self.play(FadeIn(sub, shift=UP * 0.2))
         self.play(Create(line))

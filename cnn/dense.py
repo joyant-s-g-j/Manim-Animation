@@ -2,6 +2,7 @@ from manim import *
 import flatten
 from allFunction import make_layer, fully_connect
 import numpy as np
+import sys
 
 class Dense(Scene):
     def construct(self):
@@ -97,6 +98,7 @@ class Dense(Scene):
 
         prob_group = VGroup(prob_left_bracket, prob_texts, prob_right_bracket).arrange(RIGHT, buff=0.08)
         prob_group.next_to(arrow2, RIGHT, buff=0.1)
+        sys.modules[__name__].prob_group = prob_group
 
         self.play(
             Write(prob_left_bracket),
@@ -104,5 +106,10 @@ class Dense(Scene):
             Write(prob_right_bracket)
         )
 
+        all_out = VGroup(flat_map, conn1, hidden1, conn2, hidden2, conn3, hidden3, conn4, output_layer, output_group, arrow1, softmax_text, arrow2)
+        self.play(
+            Unwrite(title),
+            FadeOut(all_out)
+        )
 
 
