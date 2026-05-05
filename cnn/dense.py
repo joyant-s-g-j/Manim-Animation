@@ -5,7 +5,7 @@ import numpy as np
 
 class Dense(Scene):
     def construct(self):
-        title = Text("Step 6 — Fully Connected Layer", font_size=32, weight=BOLD)
+        title = Text("Step 6 — Dense & Softmax", font_size=32, weight=BOLD)
         title.to_edge(UP * 1)
 
         down_shift = DOWN * 0.2
