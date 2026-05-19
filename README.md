@@ -44,14 +44,4 @@ Each file represents an animation scene, practice implementation, or reusable he
 - All work is practice-based and experimental
 
 ---
-
-**Last Updated**: May 2026  
-**Status**: 🟢 Actively Learning  
-**Next Focus**: Building more advanced animation scenes and reusable components
-
----
-
-**Keep learning, keep coding! 💻✨**
-
----
 Animated by [Joyant Sheikhar Gupta Joy](https://joyantsgj.dev)
