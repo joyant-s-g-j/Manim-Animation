@@ -79,7 +79,7 @@ class Prediction(Scene):
         pred_text.next_to(axes, DOWN, buff=0.6)
 
         self.play(Write(pred_text))
-
+        self.wait(2)
         fade_out = VGroup(prob_group[1], prob_labels, x_labels, pred_text)
         self.play(
             Unwrite(title),
